@@ -1,0 +1,32 @@
+public class Employee
+{
+    public string Name { get; set; }
+    public decimal Salary { get; set; }
+    public string Department { get; set; }
+}
+
+public class SalaryCalculator
+{
+    public decimal CalculateYearlySalary(Employee employee)
+    {
+        return employee.Salary * 12;
+    }
+}
+
+public class ReportGenerator
+{
+    public void GenerateReport(Employee employee, string reportType)
+    {
+        // Code to generate report based on report type
+    }
+}
+
+public class EmailSender
+{
+    public void SendNotification(string recipient, string message)
+    {
+        // Code to send email notification
+    }
+}
+
+

@@ -1,0 +1,58 @@
+public interface IWithdrawalBehavior
+{
+    decimal AdjustWithdrawalAmount(decimal requestedAmount);
+}
+
+public class WithdrawalWithFeeBehavior : IWithdrawalBehavior
+{
+    public decimal AdjustWithdrawalAmount(decimal requestedAmount)
+    {
+        return requestedAmount + 5.0m;
+    }
+}
+
+public class Account
+{
+    public decimal Balance { get; protected set; }
+
+    private IWithdrawalBehavior _withdrawalBehavior;
+
+    public Account()
+    {
+        _withdrawalBehavior = new WithdrawalWithFeeBehavior();
+    }
+
+    public void SetWithdrawalBehavior(IWithdrawalBehavior withdrawalBehavior)
+    {
+        _withdrawalBehavior = withdrawalBehavior;
+    }
+
+    public virtual void Deposit(decimal amount)
+    {
+        Balance += amount;
+    }
+
+    public virtual void Withdraw(decimal amount)
+    {
+        amount = _withdrawalBehavior.AdjustWithdrawalAmount(amount);
+
+        if (Balance >= amount)
+        {
+            Balance -= amount;
+        }
+        else
+        {
+            throw new InvalidOperationException("Insufficient balance.");
+        }
+    }
+}
+
+public class SavingsAccount : Account
+{
+    public decimal InterestRate { get; set; }
+
+    public SavingsAccount()
+    {
+        SetWithdrawalBehavior(new WithdrawalWithFeeBehavior());
+    }
+}

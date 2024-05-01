@@ -1,0 +1,45 @@
+// Interface representing a payment method
+public interface IPaymentMethod
+{
+    void ProcessPayment(double amount);
+}
+
+// Concrete implementation for credit card payment
+public class CreditCardPayment : IPaymentMethod
+{
+    public void ProcessPayment(double amount)
+    {
+        // Process credit card payment
+    }
+}
+
+// Concrete implementation for PayPal payment
+public class PayPalPayment : IPaymentMethod
+{
+    public void ProcessPayment(double amount)
+    {
+        // Process PayPal payment
+    }
+}
+
+// Concrete implementation for bank transfer payment
+public class BankTransferPayment : IPaymentMethod
+{
+    public void ProcessPayment(double amount)
+    {
+        // Process bank transfer payment
+    }
+}
+
+
+
+Refactor the PaymentProcessor Class:
+public class PaymentProcessor
+{
+    public void ProcessPayment(IPaymentMethod paymentMethod, double amount)
+    {
+        paymentMethod.ProcessPayment(amount);
+    }
+}
+
+
